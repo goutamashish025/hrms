@@ -1,5 +1,5 @@
 package org.example.hrms.model;
-
+import org.example.hrms.enums.Role;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.Getter;
@@ -16,6 +16,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "employee_code")   // 👈 maps to DB column
+    private String employeeCode;
 
     @Column(nullable = false)
     private String firstName;
@@ -40,7 +43,10 @@ public class User {
 
     private LocalDate dateOfJoining;
 
-    private String role; // e.g., ADMIN, EMPLOYEE, HR
+   // private String role; // e.g., ADMIN, EMPLOYEE, HR
+   @Enumerated(EnumType.STRING)
+   @Column(nullable = false)
+   private Role role;
 
     private Boolean active = true; // employment status
 
@@ -51,6 +57,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEmployeeCode() {
+        return employeeCode;
+    }
+
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
     }
 
     public String getFirstName() {
@@ -125,11 +139,11 @@ public class User {
         this.dateOfJoining = dateOfJoining;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

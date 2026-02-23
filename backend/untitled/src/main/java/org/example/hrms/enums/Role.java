@@ -1,4 +1,8 @@
 package org.example.hrms.enums;
 
-public class Role {
+public enum Role {
+    ADMIN,
+    HR_MANAGER,
+    MANAGER,
+    EMPLOYEE
 }
