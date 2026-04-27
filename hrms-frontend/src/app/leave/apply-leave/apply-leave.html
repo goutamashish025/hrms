@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- LEFT SIDE (Form - 50%) -->
+    <div class="col-md-6">
+      <div class="card p-3">
+        <h4>Apply Leave</h4>
+
+        <form (ngSubmit)="submit()">
+
+          <!-- <div class="mb-3">
+            <label>Leave Type</label>
+            <input type="number" class="form-control"
+                   [(ngModel)]="leave.leaveTypeId"
+                   name="leaveTypeId">
+          </div> -->
+
+          <div class="mb-3">
+  <label>Leave Type</label>
+
+  <select class="form-control"
+          [(ngModel)]="leave.leaveTypeId"
+          name="leaveTypeId">
+
+    <option value="">Select Leave Type</option>
+
+    <option *ngFor="let type of leaveTypes" [value]="type.id">
+      {{ type.name }}
+    </option>
+
+  </select>
+</div>
+
+          
+
+          <div class="mb-3">
+            <label>Start Date</label>
+            <input type="date" class="form-control"
+                   [(ngModel)]="leave.startDate"
+                   name="startDate">
+          </div>
+
+          <div class="mb-3">
+            <label>End Date</label>
+            <input type="date" class="form-control"
+                   [(ngModel)]="leave.endDate"
+                   name="endDate">
+          </div>
+
+          <div class="mb-3">
+            <label>Reason</label>
+            <textarea class="form-control"
+                      [(ngModel)]="leave.reason"
+                      name="reason"></textarea>
+          </div>
+
+          <button class="btn btn-primary w-100">
+            Apply
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE (Empty / Future Content - 50%) -->
+    <div class="col-md-6">
+      <div class="card p-3">
+        <h5>Leave Info / Summary</h5>
+        <p>You can show leave balance, holidays, or calendar here.</p>
+      </div>
+    </div>
+
+  </div>
+</div>

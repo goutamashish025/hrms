@@ -1,10 +1,14 @@
 package org.example.hrms.model;
+import com.fasterxml.jackson.annotation.*;
 import org.example.hrms.enums.Role;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
@@ -31,13 +35,24 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String phone;
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password; // for login
 
     private String designation;
 
     private String department;
+
+    // ✅ Manager Mapping
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    @JsonBackReference
+    private User manager;
+
+    // Optional reverse mapping
+    @OneToMany(mappedBy = "manager")
+    @JsonManagedReference
+    private List<User> teamMembers;
 
     private Double salary;
 

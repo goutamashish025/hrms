@@ -1,0 +1,58 @@
+<div class="content-wrapper">
+
+  <div class="card p-3 shadow-sm">
+    <h4 class="mb-3">Attendance</h4>
+
+    <!-- ACTION BUTTONS -->
+    <div class="mb-3">
+
+      <button class="btn btn-success me-2"
+              (click)="checkIn()"
+              [disabled]="todayRecord?.checkIn">
+        Check In
+      </button>
+
+      <button class="btn btn-danger"
+              (click)="checkOut()"
+              [disabled]="!todayRecord || todayRecord?.checkOut">
+        Check Out
+      </button>
+
+    </div>
+
+    <!-- TODAY STATUS -->
+    <div class="mb-3" *ngIf="todayRecord">
+      <strong>Today:</strong>
+      In: {{ todayRecord.checkIn || '-' }} |
+      Out: {{ todayRecord.checkOut || '-' }} |
+      Status: {{ todayRecord.status }}
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+      <table class="table table-striped">
+
+        <thead class="table-dark">
+          <tr>
+            <th>Date</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let a of attendanceList">
+            <td>{{ a.date }}</td>
+            <td>{{ a.checkIn || '-' }}</td>
+            <td>{{ a.checkOut || '-' }}</td>
+            <td>{{ a.status }}</td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+</div>

@@ -1,8 +1,15 @@
-<app-sidebar></app-sidebar>
+<div class="layout">
 
-<div class="app-content">
-  <app-navbar></app-navbar>
+  <app-sidebar></app-sidebar>
 
-  <!-- child pages like dashboard go here -->
-  <router-outlet></router-outlet>
+  <div class="main">
+
+    <app-navbar></app-navbar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
 </div>
