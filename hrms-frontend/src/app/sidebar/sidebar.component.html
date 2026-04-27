@@ -26,6 +26,19 @@
       </ul>
     </li>
 
+    <li *ngIf="role === 'MANAGER'" class="has-submenu">
+      <a href="javascript:void(0)">Team Requests ▾</a>
+
+      <ul class="submenu">
+        <li *ngIf="role === 'MANAGER'">
+          <a routerLink="/leave-requests">Leave Requests</a>
+        </li>
+        <li *ngIf="role === 'MANAGER'">
+          <a routerLink="/wfh-requests">WFH Requests</a>
+        </li>
+      </ul>
+    </li>
+
     <li>
       <a routerLink="/my-team">👥 My Team</a>
     </li>

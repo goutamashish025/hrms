@@ -7,6 +7,8 @@ import { LayoutComponent } from '../app/layout/layout.component';  // 👈 add t
 import { ApplyLeaveComponent } from '../app/leave/apply-leave/apply-leave';  // 👈 add thi
 import { MyLeaves } from '../app/leave/my-leaves/my-leaves';  
 import { Attendance } from './attendance/attendance';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { ManagerRequests } from './manager-requests/manager-requests';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,6 +29,10 @@ export const routes: Routes = [
        { path: 'apply-leave', component: ApplyLeaveComponent },
        { path: 'my-leaves', component: MyLeaves },
        { path: 'attendance', component: Attendance },
+       { path : 'leave-requests', component: ManagerRequests },
+       { path : 'wfh-requests', component: ManagerRequests }
+
+
       // { path: 'my-leaves', component: MyLeavesComponent }
       // later: employees, attendance, leaves, etc.
     ],
