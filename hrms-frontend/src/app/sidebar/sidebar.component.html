@@ -1,54 +1,55 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-<!-- Brand Logo -->
-<a href="#/dashboard" class="brand-link">
-<span class="brand-text font-weight-light">HRMS</span>
-</a>
-
-
-<!-- Sidebar -->
 <div class="sidebar">
-<!-- Sidebar Menu -->
-<nav class="mt-2">
-<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
+  <h3 class="logo">HRMS</h3>
 
-<li class="nav-item">
-<a [routerLink]="['/dashboard']" class="nav-link">
-<i class="nav-icon fas fa-tachometer-alt"></i>
-<p>Dashboard</p>
-</a>
-</li>
+  <ul>
 
+    <li>
+      <a routerLink="/dashboard">🏠 Dashboard</a>
+    </li>
 
-@if (isAdmin) {
-  <li class="nav-item">
-    <a [routerLink]="['/employees']" class="nav-link">
-      <i class="nav-icon fas fa-users"></i>
-      <p>Employees</p>
-    </a>
-  </li>
-}
+    <li>
+      <a routerLink="/attendance">📊 Attendance</a>
+    </li>
 
+    <!-- Leaves with Submenu -->
+    <li class="has-submenu">
+      <a href="javascript:void(0)">📅 Leaves ▾</a>
 
-<li class="nav-item">
-<a [routerLink]="['/attendance']" class="nav-link">
-<i class="nav-icon fas fa-calendar-check"></i>
-<p>Attendance</p>
-</a>
-</li>
+      <ul class="submenu">
+        <li>
+          <a routerLink="/my-leaves">📄 My Leaves</a>
+        </li>
+        <li>
+          <a routerLink="/apply-leave">➕ Apply Leave</a>
+        </li>
+      </ul>
+    </li>
 
+    <li>
+      <a routerLink="/my-team">👥 My Team</a>
+    </li>
 
-<li class="nav-item">
-<a [routerLink]="['/leave']" class="nav-link">
-<i class="nav-icon fas fa-file-alt"></i>
-<p>Leaves</p>
-</a>
-</li>
+    <li>
+      <a routerLink="/organization">🏢 Organization</a>
+    </li>
 
+    <li>
+      <a routerLink="/helpdesk">❓ Helpdesk</a>
+    </li>
 
-</ul>
-</nav>
-<!-- /.sidebar-menu -->
+    <li>
+      <a routerLink="/requests">📋 Requests</a>
+    </li>
+
+    <li>
+      <a routerLink="/finance">💰 Finance</a>
+    </li>
+
+    <li>
+      <a routerLink="/settings">⚙️ Settings</a>
+    </li>
+
+  </ul>
+
 </div>
-<!-- /.sidebar -->
-</aside>

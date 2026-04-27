@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';      
+import { Component, EventEmitter, Output } from '@angular/core';      
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth';
 
@@ -11,7 +11,7 @@ export class NavbarComponent {
 constructor(private authService: AuthService, private router: Router) {}
 
   
-
+ @Output() toggle = new EventEmitter<void>();
 logout() {
   const maybeObs: any = this.authService.logout();
   if (maybeObs && typeof maybeObs.subscribe === 'function') {
@@ -36,3 +36,5 @@ clearSession() {
   this.router.navigate(['/login']);
 }
 }
+
+
