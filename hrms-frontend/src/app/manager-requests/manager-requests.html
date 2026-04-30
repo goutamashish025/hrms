@@ -1,36 +1,48 @@
-<table class="table table-bordered mt-3">
+<table class="table table-bordered">
   <thead>
     <tr>
       <th>Employee</th>
       <th>Type</th>
       <th>Dates</th>
       <th>Status</th>
-      <th>Action</th> <!-- ✅ NEW -->
+      <th>Reason</th> <!-- ✅ NEW -->
+      <th>Action</th>
     </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let r of requests">
-      <td>{{ r.employeeName }}</td>
-      <td>{{ r.leaveType }}</td>
-      <td>{{ r.startDate }} - {{ r.endDate }}</td>
-      <td>{{ r.status }}</td>
+    <tr *ngFor="let req of requests">
 
+      <!-- Employee -->
       <td>
-        @if (r.status === 'PENDING') {
-          <button class="btn btn-success btn-sm me-2"
-                  (click)="approve(r.id)">
-            Approve
-          </button>
-        }
-
-        @if (r.status === 'PENDING') {
-          <button class="btn btn-danger btn-sm"
-                  (click)="reject(r.id)">
-            Reject
-          </button>
-        }
+        {{ req.employeeName 
+           || (req.employee?.firstName + ' ' + req.employee?.lastName) }}
       </td>
+
+      <!-- Type -->
+      <td>{{ req.leaveType || req.type }}</td>
+
+      <!-- Dates -->
+      <td>
+        {{ req.startDate 
+            ? (req.startDate + ' - ' + req.endDate) 
+            : req.date }}
+      </td>
+
+      <!-- Status -->
+      <td>{{ req.status }}</td>
+
+      <!-- ✅ Reason -->
+      <td style="max-width:200px; white-space: nowrap; overflow: auto; ">
+        {{ req.reason || '-' }}
+        </td>
+
+      <!-- Action -->
+      <td>
+        <button (click)="approve(req.id)" class="btn btn-success btn-sm">Approve</button>
+        <button (click)="reject(req.id)" class="btn btn-danger btn-sm">Reject</button>
+      </td>
+
     </tr>
   </tbody>
 </table>

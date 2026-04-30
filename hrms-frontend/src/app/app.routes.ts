@@ -29,8 +29,8 @@ export const routes: Routes = [
        { path: 'apply-leave', component: ApplyLeaveComponent },
        { path: 'my-leaves', component: MyLeaves },
        { path: 'attendance', component: Attendance },
-       { path : 'leave-requests', component: ManagerRequests },
-       { path : 'wfh-requests', component: ManagerRequests }
+       { path : 'leave-requests', component: ManagerRequests, data: { type: 'leave' } },
+       { path : 'wfh-requests', component: ManagerRequests, data: { type: 'wfh' } }
 
 
       // { path: 'my-leaves', component: MyLeavesComponent }
