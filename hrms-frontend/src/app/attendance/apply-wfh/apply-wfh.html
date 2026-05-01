@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h3>Apply WFH</h3>
+
+  <form (ngSubmit)="submit()">
+
+    <!-- Date -->
+    <div class="mb-3">
+      <label>Date</label>
+      <input type="date"
+             class="form-control"
+             [(ngModel)]="wfh.date"
+             name="date"
+             required>
+    </div>
+
+    <!-- Type -->
+    <div class="mb-3">
+      <label>Type</label>
+      <select class="form-control"
+              [(ngModel)]="wfh.type"
+              name="type">
+        <option value="WFH">WFH</option>
+        <option value="ON_DUTY">On Duty</option>
+      </select>
+    </div>
+
+    <!-- Reason -->
+    <div class="mb-3">
+      <label>Reason</label>
+      <textarea class="form-control"
+                [(ngModel)]="wfh.reason"
+                name="reason"
+                required></textarea>
+    </div>
+
+    <!-- Submit -->
+    <button class="btn btn-primary">Submit</button>
+
+  </form>
+</div>
