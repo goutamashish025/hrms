@@ -1,0 +1,37 @@
+<div class="requests-container">
+
+  <h2>My Requests</h2>
+
+  <!-- Filters -->
+  <div class="filters">
+    <button (click)="filterRequests('ALL')" [class.active]="filterType==='ALL'">All</button>
+    <button (click)="filterRequests('LEAVE')" [class.active]="filterType==='LEAVE'">Leave</button>
+    <button (click)="filterRequests('WFH')" [class.active]="filterType==='WFH'">WFH</button>
+  </div>
+
+  <!-- List -->
+  <div class="request-list">
+
+    <div class="request-row" *ngFor="let r of filteredRequests">
+
+      <div class="left">
+        <span class="type" [ngClass]="r.type.toLowerCase()">
+          {{ r.type }}
+        </span>
+
+        <div class="dates">
+          {{ r.startDate }} → {{ r.endDate }}
+        </div>
+      </div>
+
+      <div class="right">
+        <span class="status" [ngClass]="r.status.toLowerCase()">
+          {{ r.status }}
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

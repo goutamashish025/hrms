@@ -1,14 +1,16 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from '../app/auth/login/login.component';
-import { RegisterComponent } from '../app/auth/register/register.component';
-import { Dashboard } from '../app/dashboard/dashboard.component';
+import { LoginComponent } from './core/services/login.component';
+import { RegisterComponent } from './core/services/register.component';
+import { Dashboard } from './features/dashboard/dashboard.component';
 import { authGuard } from './guards/auth-guard';   // 👈 add this
-import { LayoutComponent } from '../app/layout/layout.component';  // 👈 add this
-import { ApplyLeaveComponent } from '../app/leave/apply-leave/apply-leave';  // 👈 add thi
-import { MyLeaves } from '../app/leave/my-leaves/my-leaves';  
-import { Attendance } from './attendance/attendance';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { ManagerRequests } from './manager-requests/manager-requests';
+import { LayoutComponent } from './layouts/layout/layout.component';  // 👈 add this
+import { ApplyLeaveComponent } from '../app/core/services/apply-leave';  // 👈 add thi
+import { MyLeaves } from './\core/services/my-leaves';  
+import { Attendance } from './core/services/attendance';
+import { SidebarComponent } from './layouts/sidebar/sidebar.component';
+import { ManagerRequests } from './core/services/manager-requests';
+import { ApplyWfh } from './core/services/apply-wfh';
+import { MyRequests } from '../app/core/services/my-requests';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,7 +32,9 @@ export const routes: Routes = [
        { path: 'my-leaves', component: MyLeaves },
        { path: 'attendance', component: Attendance },
        { path : 'leave-requests', component: ManagerRequests, data: { type: 'leave' } },
-       { path : 'wfh-requests', component: ManagerRequests, data: { type: 'wfh' } }
+       { path : 'wfh-requests', component: ManagerRequests, data: { type: 'wfh' } },
+       { path: 'apply-wfh', component: ApplyWfh },
+       { path: 'my-requests', component: MyRequests },
 
 
       // { path: 'my-leaves', component: MyLeavesComponent }

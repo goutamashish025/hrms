@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ApplyLeaveComponent } from '../../../core/services/apply-leave';
+
+describe('ApplyLeaveComponent', () => {
+  let component: ApplyLeaveComponent;
+  let fixture: ComponentFixture<ApplyLeaveComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ApplyLeaveComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ApplyLeaveComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
