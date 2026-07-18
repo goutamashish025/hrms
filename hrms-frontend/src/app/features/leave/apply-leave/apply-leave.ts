@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LeaveService } from '../../core/services/leave.service';
+import { LeaveService } from '../../../core/services/leave.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-apply-leave',
   standalone: true,
-  templateUrl: '../../features/leave/apply-leave/apply-leave.html',
+  templateUrl: './apply-leave.html',
   imports: [FormsModule, CommonModule]
 })
 export class ApplyLeaveComponent implements OnInit {

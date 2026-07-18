@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApplyWfh } from '../../../core/services/apply-wfh';
+import { ApplyWfh } from './apply-wfh';
 
 describe('ApplyWfh', () => {
   let component: ApplyWfh;

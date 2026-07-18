@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';      
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
+import { TokenStorageService } from '../../core/services/token-storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { AuthService } from '../../core/services/auth';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-constructor(private authService: AuthService, private router: Router) {}
+constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService) {}
 
   
  @Output() toggle = new EventEmitter<void>();
@@ -31,8 +32,8 @@ logout() {
 }
 
 clearSession() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('role');
+  this.tokenStorage.removeItem('token');
+  this.tokenStorage.removeItem('role');
   this.router.navigate(['/login']);
 }
 }

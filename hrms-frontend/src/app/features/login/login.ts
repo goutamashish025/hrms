@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
+import { TokenStorageService } from '../../core/services/token-storage.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -8,17 +9,18 @@ import { CommonModule } from '@angular/common';
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: '../../features/login/login.component.html',
-  styleUrls: ['../../features/login/login.component.scss']
+  templateUrl: './login.html',
+  styleUrls: ['./login.scss']
 })
-export class LoginComponent {
+export class Login {
   email = '';
   password = '';
   errorMessage = '';
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private tokenStorage: TokenStorageService
   ) {}
 
   login() {
@@ -38,13 +40,13 @@ export class LoginComponent {
         // }
         if (response.status === 'success') {
   // Save token
-  localStorage.setItem('token', response.data.token);
+  this.tokenStorage.setItem('token', response.data.token);
 
   // Save user role
-  localStorage.setItem('role', response.data.role);
+  this.tokenStorage.setItem('role', response.data.role);
 
   // Optionally save whole user object
-  localStorage.setItem('user', JSON.stringify(response.data));
+  this.tokenStorage.setItem('user', JSON.stringify(response.data));
 
   // Redirect to dashboard
   this.router.navigate(['/dashboard']);

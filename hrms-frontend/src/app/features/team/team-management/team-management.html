@@ -1,0 +1,119 @@
+<div class="container">
+
+  <div class="header mb-3">
+    <h2>Team Management</h2>
+
+    <button class="btn btn-primary">
+      Create Team
+    </button>
+  </div>
+
+  <div class="row">
+
+    <!-- Teams Section -->
+    <div class="col-md-4">
+
+      <div class="card shadow-sm">
+
+        <div class="card-header">
+          Teams
+        </div>
+
+        <ul class="list-group list-group-flush">
+
+          @for (team of teams; track team.id) {
+
+            <li
+              class="list-group-item list-group-item-action"
+              (click)="selectTeam(team)"
+              style="cursor: pointer;">
+
+              <div class="fw-bold">
+                {{ team.teamName }}
+              </div>
+
+              <small class="text-muted">
+                {{ team.description }}
+              </small>
+
+            </li>
+
+          } @empty {
+
+            <li class="list-group-item text-muted">
+              No teams found
+            </li>
+
+          }
+
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- Members Section -->
+    <div class="col-md-8">
+
+      <div class="card shadow-sm">
+
+        <div class="card-header">
+          Team Members
+        </div>
+
+        <table class="table table-hover mb-0">
+
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Manager</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            @for (member of members; track member.id) {
+
+              <tr>
+
+                <td>
+                  {{ member.firstName }}
+                  {{ member.lastName }}
+
+                  @if (member.isManager) {
+
+                    <span class="badge bg-success ms-1">
+                      Manager
+                    </span>
+
+                  }
+
+                </td>
+
+                <td>
+                  {{ member.managerName || 'No manager assigned' }}
+                </td>
+
+              </tr>
+
+            } @empty {
+
+              <tr>
+                <td colspan="2" class="text-center text-muted">
+                  No team members found
+                </td>
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

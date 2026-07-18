@@ -1,22 +1,17 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
 
-  private apiUrl = 'http://localhost:8080/api/requests';
+  private apiUrl = `${environment.apiUrl}/requests`;
 
   constructor(private http: HttpClient) {}
 
   getMyRequests() {
-    const token = localStorage.getItem('token'); // 🔥 get JWT
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-
-    return this.http.get<any>(`${this.apiUrl}/my`, { headers });
+    return this.http.get<any>(`${this.apiUrl}/my`);
   }
 }

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LeaveService } from '../../core/services/leave.service';
+import { LeaveService } from '../../../core/services/leave.service';
 
 @Component({
   selector: 'app-my-leaves',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: '../../features/leave/my-leaves/my-leaves.html',
-  styleUrls: ['../../features/leave/my-leaves/my-leaves.scss']
+  templateUrl: './my-leaves.html',
+  styleUrls: ['./my-leaves.scss']
 })
 export class MyLeaves implements OnInit {
 

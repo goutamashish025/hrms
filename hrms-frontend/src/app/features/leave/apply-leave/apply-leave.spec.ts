@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApplyLeaveComponent } from '../../../core/services/apply-leave';
+import { ApplyLeaveComponent } from './apply-leave';
 
 describe('ApplyLeaveComponent', () => {
   let component: ApplyLeaveComponent;

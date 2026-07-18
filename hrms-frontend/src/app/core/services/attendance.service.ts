@@ -1,33 +1,25 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
 
-  private baseUrl = 'http://localhost:8080/api/attendance';
+  private baseUrl = `${environment.apiUrl}/attendance`;
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders() {
-    const token = localStorage.getItem('token');
-    return {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${token}`
-      })
-    };
-  }
-
   checkIn() {
-    return this.http.post(`${this.baseUrl}/check-in`, {}, this.getHeaders());
+    return this.http.post(`${this.baseUrl}/check-in`, {});
   }
 
   checkOut() {
-    return this.http.post(`${this.baseUrl}/check-out`, {}, this.getHeaders());
+    return this.http.post(`${this.baseUrl}/check-out`, {});
   }
 
   getMyAttendance() {
-    return this.http.get(`${this.baseUrl}/my`, this.getHeaders());
+    return this.http.get(`${this.baseUrl}/my`);
   }
 }

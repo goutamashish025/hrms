@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestService } from '../services/request.service';
-import { RouterLink } from '@angular/router';
+import { RequestService } from '../../../core/services/request.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ɵInternalFormsSharedModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-my-requests',
-  templateUrl: '../../features/requests/my-requests/my-requests.html',
-  styleUrls: ['../../features/requests/my-requests/my-requests.scss'],
-  imports: [CommonModule, ɵInternalFormsSharedModule]
+  templateUrl: './my-requests.html',
+  styleUrls: ['./my-requests.scss'],
+  imports: [CommonModule, FormsModule]
 })
 export class MyRequests implements OnInit {
 

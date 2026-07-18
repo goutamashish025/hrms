@@ -48,6 +48,20 @@
       </ul>
     </li>
 
+    <li *ngIf="role === 'HR_MANAGER' || role === 'ADMIN'" class="has-submenu">
+  <a href="javascript:void(0)">👥 Team Management ▾</a>
+
+  <ul class="submenu">
+    <li>
+      <a routerLink="/teams">📋 Manage Teams</a>
+    </li>
+
+    <li>
+      <a routerLink="/employee-directory">👨‍💼 Employee Directory</a>
+    </li>
+  </ul>
+</li>
+
     <li>
       <a routerLink="/my-team">👥 My Team</a>
     </li>

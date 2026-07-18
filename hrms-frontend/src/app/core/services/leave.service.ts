@@ -1,44 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeaveService {
 
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders() {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      throw new Error('No authentication token found');
-    }
-
-    return {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      })
-    };
-  }
-
   getLeaveTypes(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/leaves/types`, this.getHeaders());
+    return this.http.get(`${this.baseUrl}/leaves/types`);
   }
 
   applyLeave(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/leaves/apply`, data, this.getHeaders());
+    return this.http.post(`${this.baseUrl}/leaves/apply`, data);
   }
 
   getMyLeaves(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/leaves/my`, this.getHeaders());
+    return this.http.get(`${this.baseUrl}/leaves/my`);
   }
 
   cancelLeave(id: number): Observable<any> {
-    return this.http.put(`${this.baseUrl}/leaves/${id}/cancel`, {}, this.getHeaders());
+    return this.http.put(`${this.baseUrl}/leaves/${id}/cancel`, {});
   }
 }

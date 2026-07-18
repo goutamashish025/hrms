@@ -1,33 +1,23 @@
-// core/services/api.service.ts
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders() {
-    const token = (localStorage.getItem('token') || '').replace(/"/g, '');
-
-    return {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${token}`
-      })
-    };
-  }
-
   get(url: string) {
-    return this.http.get(`${this.baseUrl}${url}`, this.getHeaders());
+    return this.http.get(`${this.baseUrl}${url}`);
   }
 
   post(url: string, body: any) {
-    return this.http.post(`${this.baseUrl}${url}`, body, this.getHeaders());
+    return this.http.post(`${this.baseUrl}${url}`, body);
   }
 
   put(url: string, body: any) {
-    return this.http.put(`${this.baseUrl}${url}`, body, this.getHeaders());
+    return this.http.put(`${this.baseUrl}${url}`, body);
   }
 }

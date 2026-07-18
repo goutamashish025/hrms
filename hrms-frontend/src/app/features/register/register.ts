@@ -8,10 +8,10 @@ import { AuthService } from '../../core/services/auth';
   standalone: true,
   imports: [CommonModule, FormsModule],
 
-  templateUrl: '../../features/register/register.component.html',
-  styleUrl: '../../features/register/register.scss'
+  templateUrl: './register.html',
+  styleUrl: './register.scss'
 })
-export class RegisterComponent {
+export class Register {
   user = {
     firstName: '',
     lastName: '',

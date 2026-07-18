@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TokenStorageService } from '../../core/services/token-storage.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,16 +8,15 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.scss'
 })
 export class Dashboard {
-    // role: string | null = null;
+    private tokenStorage = inject(TokenStorageService);
 
-    role = localStorage.getItem('role');
+    role = this.tokenStorage.getItem('role');
 
   ngOnInit(): void {
-    // ✅ get role from localStorage
-    this.role = localStorage.getItem('role');
+    this.role = this.tokenStorage.getItem('role');
   }
   logout() {
-    localStorage.removeItem('token'); 
+    this.tokenStorage.removeItem('token');
     window.location.href = '/login'; // Redirect to login page
   }
 
