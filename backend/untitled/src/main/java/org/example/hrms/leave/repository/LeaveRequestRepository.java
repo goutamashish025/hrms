@@ -30,4 +30,5 @@ public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Long
             User manager,
             LeaveStatus status
     );
+
 }

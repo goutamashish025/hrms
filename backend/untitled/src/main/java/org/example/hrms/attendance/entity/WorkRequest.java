@@ -1,9 +1,10 @@
 package org.example.hrms.attendance.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.hrms.attendance.enums.AttendanceStatus;
-import org.example.hrms.leave.enums.LeaveStatus;
+import org.example.hrms.attendance.enums.WorkRequestStatus;
 import org.example.hrms.model.User;
 
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ public class WorkRequest {
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
+    @JsonIgnore
     private User employee;
 
     private LocalDate date;
@@ -31,7 +33,7 @@ public class WorkRequest {
     private AttendanceStatus type; // WFH or ON_DUTY
 
     @Enumerated(EnumType.STRING)
-    private LeaveStatus status; // PENDING, APPROVED, REJECTED
+    private WorkRequestStatus status;
 
     private String reason;
 
@@ -39,5 +41,6 @@ public class WorkRequest {
 
     @ManyToOne
     @JoinColumn(name = "approved_by")
+    @JsonIgnore
     private User approvedBy;
 }

@@ -2,6 +2,7 @@ package org.example.hrms.attendance.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.hrms.attendance.service.AttendanceService;
+import org.example.hrms.exception.ResourceNotFoundException;
 import org.example.hrms.model.User;
 import org.example.hrms.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ public class AttendanceController {
 
     private User getLoggedInUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findByEmail(email).orElseThrow();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     // ✅ CHECK IN

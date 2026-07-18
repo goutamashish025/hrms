@@ -3,6 +3,7 @@ package org.example.hrms.attendance.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.hrms.attendance.dto.WorkRequestDTO;
 import org.example.hrms.attendance.service.WorkRequestService;
+import org.example.hrms.exception.ResourceNotFoundException;
 import org.example.hrms.model.User;
 import org.example.hrms.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,8 @@ public class EmployeeWorkRequestController {
                 .getAuthentication()
                 .getName();
 
-        User employee = userRepository.findByEmail(email).orElseThrow();
+        User employee = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         return ResponseEntity.ok(
                 workRequestService.applyWorkRequest(
@@ -39,4 +41,5 @@ public class EmployeeWorkRequestController {
                 )
         );
     }
+
 }

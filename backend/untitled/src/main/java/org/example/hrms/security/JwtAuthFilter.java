@@ -1,5 +1,6 @@
 package org.example.hrms.security;
 
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
+    private final TokenBlacklistService tokenBlacklistService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -40,7 +42,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         // Extract token
         jwt = authHeader.substring(7);
-        username = jwtUtil.extractUsername(jwt);
+
+        if (tokenBlacklistService.isBlacklisted(jwt)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        try {
+            username = jwtUtil.extractUsername(jwt);
+        } catch (JwtException e) {
+            // Malformed/expired token → treat as anonymous instead of 500ing
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         // If username exists & no authentication already set
         if (username != null &&

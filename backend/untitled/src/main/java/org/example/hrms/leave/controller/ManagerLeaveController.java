@@ -6,6 +6,7 @@ import org.example.hrms.model.User;
 import org.example.hrms.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.example.hrms.exception.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,7 +27,7 @@ public class ManagerLeaveController {
                 .getName();
 
         User manager = userRepository.findByEmail(email)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         return ResponseEntity.ok(
                 leaveService.getPendingLeavesForManager(manager)
@@ -42,7 +43,7 @@ public class ManagerLeaveController {
                 .getName();
 
         User manager = userRepository.findByEmail(email)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         return ResponseEntity.ok(
                 leaveService.updateLeaveStatus(id, manager, LeaveStatus.APPROVED)
@@ -58,7 +59,7 @@ public class ManagerLeaveController {
                 .getName();
 
         User manager = userRepository.findByEmail(email)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         return ResponseEntity.ok(
                 leaveService.updateLeaveStatus(id, manager, LeaveStatus.REJECTED)

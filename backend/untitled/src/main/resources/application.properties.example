@@ -1,3 +1,6 @@
+# Copy this file to application.properties and fill in real values,
+# or set the corresponding environment variables (DB_USERNAME, DB_PASSWORD, JWT_SECRET, JWT_EXPIRATION_MS).
+
 # ===============================
 # Server Config
 # ===============================
@@ -7,9 +10,16 @@ server.port=8080
 # Database Config
 # ===============================
 spring.datasource.url=jdbc:mysql://localhost:3306/hrms_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-spring.datasource.username=root
-spring.datasource.password=Admin@123
+spring.datasource.username=${DB_USERNAME:your-db-username}
+spring.datasource.password=${DB_PASSWORD:your-db-password}
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# ===============================
+# JWT Config
+# ===============================
+# Generate a real secret with: openssl rand -base64 32
+jwt.secret=${JWT_SECRET:replace-with-a-real-base64-256-bit-secret}
+jwt.expiration-ms=${JWT_EXPIRATION_MS:3600000}
 
 # ===============================
 # JPA / Hibernate Config

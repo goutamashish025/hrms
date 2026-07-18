@@ -1,10 +1,15 @@
 package org.example.hrms.attendance.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.hrms.attendance.dto.AttendanceResponseDTO;
 import org.example.hrms.attendance.entity.Attendance;
+import org.example.hrms.attendance.enums.AttendanceStatus;
 import org.example.hrms.attendance.repository.AttendanceRepository;
+import org.example.hrms.exception.ConflictException;
+import org.example.hrms.exception.ResourceNotFoundException;
 import org.example.hrms.model.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,40 +22,58 @@ public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
 
     // ✅ CHECK IN
-    public Attendance checkIn(User user) {
+    @Transactional
+    public AttendanceResponseDTO checkIn(User user) {
 
         LocalDate today = LocalDate.now();
 
         if (attendanceRepository.findByEmployeeAndDate(user, today).isPresent()) {
-            throw new RuntimeException("Already checked in today");
+            throw new ConflictException("Already checked in today");
         }
 
         Attendance attendance = Attendance.builder()
                 .employee(user)
                 .date(today)
                 .checkIn(LocalTime.now())
-                .status("PRESENT")
+                .status(AttendanceStatus.PRESENT)
                 .build();
 
-        return attendanceRepository.save(attendance);
+        return toResponseDTO(attendanceRepository.save(attendance));
     }
 
     // ✅ CHECK OUT
-    public Attendance checkOut(User user) {
+    @Transactional
+    public AttendanceResponseDTO checkOut(User user) {
 
         LocalDate today = LocalDate.now();
 
         Attendance attendance = attendanceRepository
                 .findByEmployeeAndDate(user, today)
-                .orElseThrow(() -> new RuntimeException("Check-in not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Check-in not found"));
+
+        if (attendance.getCheckOut() != null) {
+            throw new ConflictException("Already checked out today");
+        }
 
         attendance.setCheckOut(LocalTime.now());
 
-        return attendanceRepository.save(attendance);
+        return toResponseDTO(attendanceRepository.save(attendance));
     }
 
     // ✅ GET MY ATTENDANCE
-    public List<Attendance> getMyAttendance(User user) {
-        return attendanceRepository.findByEmployee(user);
+    public List<AttendanceResponseDTO> getMyAttendance(User user) {
+        return attendanceRepository.findByEmployee(user).stream()
+                .map(this::toResponseDTO)
+                .toList();
+    }
+
+    private AttendanceResponseDTO toResponseDTO(Attendance attendance) {
+        return AttendanceResponseDTO.builder()
+                .id(attendance.getId())
+                .date(attendance.getDate())
+                .checkIn(attendance.getCheckIn())
+                .checkOut(attendance.getCheckOut())
+                .status(attendance.getStatus() != null ? attendance.getStatus().name() : null)
+                .build();
     }
 }

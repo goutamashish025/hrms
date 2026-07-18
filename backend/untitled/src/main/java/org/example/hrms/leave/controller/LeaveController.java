@@ -1,8 +1,9 @@
 package org.example.hrms.leave.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.hrms.exception.ResourceNotFoundException;
 import org.example.hrms.leave.dto.ApplyLeaveRequest;
-import org.example.hrms.leave.entity.LeaveRequest;
+import org.example.hrms.leave.dto.LeaveResponseDTO;
 import org.example.hrms.leave.service.LeaveService;
 import org.example.hrms.model.User;
 import org.example.hrms.repository.UserRepository;
@@ -31,9 +32,9 @@ public class LeaveController {
                 .getName();
 
         User employee = userRepository.findByEmail(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        LeaveRequest leaveRequest = leaveService.applyLeave(
+        LeaveResponseDTO leaveRequest = leaveService.applyLeave(
                 employee,
                 request.getLeaveTypeId(),
                 request.getStartDate(),
@@ -55,9 +56,9 @@ public class LeaveController {
                 .getName();
 
         User employee = userRepository.findByEmail(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        List<LeaveRequest> leaves = leaveService.getLeavesByUser(employee);
+        List<LeaveResponseDTO> leaves = leaveService.getLeavesByUser(employee);
 
         return ResponseEntity.ok(leaves);
     }
@@ -72,7 +73,7 @@ public class LeaveController {
                 .getName();
 
         User employee = userRepository.findByEmail(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         leaveService.cancelLeave(id, employee);
 

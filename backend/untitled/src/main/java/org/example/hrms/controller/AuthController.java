@@ -5,6 +5,7 @@ import org.example.hrms.dto.ApiResponse;
 import org.example.hrms.model.User;
 import org.example.hrms.repository.UserRepository;
 import org.example.hrms.security.JwtUtil;
+import org.example.hrms.security.TokenBlacklistService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,15 +25,18 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final TokenBlacklistService tokenBlacklistService;
 
     public AuthController(UserRepository userRepository,
                           PasswordEncoder passwordEncoder,
                           AuthenticationManager authenticationManager,
-                          JwtUtil jwtUtil) {
+                          JwtUtil jwtUtil,
+                          TokenBlacklistService tokenBlacklistService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     // REGISTER
@@ -57,13 +61,11 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ApiResponse<String> logout(HttpServletRequest request) {
-        // Extract token from Authorization header (if you want to blacklist)
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
 
-            // Optional: save token in blacklist (DB, Redis, etc.)
-            // tokenBlacklistService.blacklist(token);
+            tokenBlacklistService.blacklist(token, jwtUtil.extractExpiration(token));
 
             return new ApiResponse<>("success", "Logout successful", null);
         }
